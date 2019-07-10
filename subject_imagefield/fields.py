@@ -34,10 +34,12 @@ class SubjectImageFieldFile(ImageFieldFile):
     def sorl(self):
         """ shortcut property to use with sorl-thumbnmail crop featur e"""
         position = self.subject_perc_position
-        x = position.get('x')
-        y = position.get('y')
-        # also need -0
-        return '%s%% %s%%' % (x, y)
+        if position:
+            x = position.get('x')
+            y = position.get('y')
+            # also need -0
+            return '%s%% %s%%' % (x, y)
+        return '50% 50%'
 
 
 class SubjectImageField(models.ImageField):
@@ -52,10 +54,10 @@ class SubjectImageField(models.ImageField):
                  **kwargs):
         self.width_field, self.height_field = width_field, height_field
         self.subject_location_field = subject_location_field
-        super().__init__(verbose_name, name, **kwargs)
+        super(SubjectImageField, self).__init__(verbose_name, name, **kwargs)
 
     def deconstruct(self):
-        name, path, args, kwargs = super().deconstruct()
+        name, path, args, kwargs = super(SubjectImageField, self).deconstruct()
         if self.subject_location_field:
             kwargs['subject_location_field'] = self.subject_location_field
         return name, path, args, kwargs
@@ -74,4 +76,4 @@ class SubjectImageField(models.ImageField):
             'subject_location_field':
             self.subject_location_field
         })
-        return super().formfield(**d)
+        return super(SubjectImageField, self).formfield(**d)
