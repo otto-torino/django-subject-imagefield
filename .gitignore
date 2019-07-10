@@ -1,0 +1,9 @@
+*.swp
+*.pyc
+docs/_build
+docs/_static
+docs/_templates
+build/
+/dist/
+tags
+django_subject_imagefield.egg-info/
