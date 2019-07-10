@@ -1,9 +1,9 @@
-{% if is_initial or widget.is_initial %}<div class="file-upload">{{ widget.initial_text|default:initial_text }}: <a {% if widget.attrs.subject_location_field %}onclick="window.open('{{ widget.value.url }}')" href="javascript:void(0)"{% else %}href="{{ widget.value.url }}"{% endif %}>{{ widget.value }}</a>{% if not widget.required %}
+{% if is_initial or widget.is_initial %}<div class="file-upload">{% if widget.initial_text %}{{ widget.initial_text }}{% else %}{{ initial_text }}{% endif %}: <a {% if widget.attrs.subject_location_field %}onclick="window.open('{{ widget.value.url }}')" href="javascript:void(0)"{% else %}href="{{ widget.value.url }}"{% endif %}>{{ widget.value }}</a>{% if not widget.required %}
 <span class="clearable-file-input">
-<input type="checkbox" name="{{ widget.checkbox_name|default:checkbox_name }}" id="{{ widget.checkbox_id|default:checkbox_id }}">
-<label for="{{ widget.checkbox_id|default:checkbox_id }}">{{ widget.clear_checkbox_label|default:clear_checkbox_label }}</label></span>{% endif %}<br>
+    <input type="checkbox" name="{% if widget.checkbox_name %}{{ widget.checkbox_name }}{% else %}{{ checkbox_name }}{% endif %}" id="{% if widget.checkbox_id %}{{ widget.checkbox_id }}{% else %}{{ checkbox_id }}{% endif %}">
+    <label for="{% if widget.checkbox_id %}{{ widget.checkbox_id }}{% else %}{{ checkbox_id }}{% endif %}">{% if widget.clear_checkbox_label %}{{ widget.clear_checkbox_label }}{% else %}{{ clear_checkbox_label }}{% endif %}</label></span>{% endif %}<br>
 {% if widget.attrs.subject_location_field %}<div class="subject-image-preview" id="subject-image-preview-{{ widget.attrs.id }}" style="display: inline-block; position: relative; margin-bottom: 1rem;"><img draggable="false" style="width: {{ widget.attrs.preview_width }}px;user-select: none;" src="{{ widget.value.url }}" /></div><br />{% endif %}
-{{ widget.input_text|default:input_text }}:{% endif %}
+{% if widget.input_text %}{{ widget.input_text }}{% else %}{{ input_text }}{% endif %}:{% endif %}
 <input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>{% if is_initial or widget.is_initial %}</div>{% endif %}
 {% if widget.attrs.subject_location_field %}
 <script>
