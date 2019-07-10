@@ -9,6 +9,8 @@ Use it together with some sort of thumbs generator application in order to show 
 
 ![screencast](screencast.gif)
 
+Tested for django >= 1.11
+
 ## Installation
 
 Install with pip
@@ -57,3 +59,4 @@ Example:
     <p>Thumb cropped considering subject position:</p>
     {% thumbnail object.image "200x800" crop=object.image.sorl as thumb %}
     <img src="{{ thumb.url }}" alt="ftw" />
+    {% endthumbnail %}
