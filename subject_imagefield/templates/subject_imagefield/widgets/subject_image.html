@@ -40,7 +40,7 @@
         if (perc) {
             // let's round
             perc = { top: Math.round(perc.top), left: Math.round(perc.left) };
-            $('#id_{{ widget.attrs.subject_location_field }}').val(perc.left + ',' + perc.top);
+            POSITION_INPUT.val(perc.left + ',' + perc.top);
         } else {
             var parts = POSITION_INPUT.val().split(',');
             perc = { left: parts[0], top: parts[1] };
@@ -107,11 +107,18 @@
             updateInputPosition(previewToPercCoordinates({ left: left, top: top }));
 
         });
-        POSITION_INPUT = $('#id_{{ widget.attrs.subject_location_field }}')
-            .on('blur', function () {
-                var parts = $(this).val().split(',');
-                PIN.css(toEdgeCoordinates(percToPreviewCoordinates({ left: parts[0], top: parts[1] })));
-            });
+        // inline?
+        var lastDash = '{{ widget.attrs.id }}'.lastIndexOf('-');
+        if (lastDash !== -1) {
+            var prefix = '{{ widget.attrs.id }}'.substr(0, lastDash);
+            POSITION_INPUT = $('#' + prefix + '-{{ widget.attrs.subject_location_field }}')
+        } else {
+            POSITION_INPUT = $('#id_{{ widget.attrs.subject_location_field }}')
+        }
+        POSITION_INPUT.on('blur', function () {
+            var parts = $(this).val().split(',');
+            PIN.css(toEdgeCoordinates(percToPreviewCoordinates({ left: parts[0], top: parts[1] })));
+        });
         HEIGHT = PREVIEW.height();
         WIDTH = PREVIEW.width();
         init();
