@@ -78,6 +78,10 @@
     function init() {
         var image = new Image();
         image.onload = function () {
+            // get width and height with a new image object because Baton tabs cause image container to be 0x0 when
+            // the tab is initially hidden
+            HEIGHT = image.naturalHeight * ({{ widget.attrs.preview_width }} / image.naturalWidth);
+            WIDTH = {{ widget.attrs.preview_width }};
             // get real size
             var position =  updateInputPosition();
             var initPinPosition = toEdgeCoordinates(percToPreviewCoordinates(position));
@@ -120,15 +124,7 @@
             var parts = $(this).val().split(',');
             PIN.css(toEdgeCoordinates(percToPreviewCoordinates({ left: parts[0], top: parts[1] })));
         });
-        // get width and height with a new image object because Baton tabs cause image container to be 0x0 when
-        // the tab is initially hidden
-        var image = new Image();
-        image.src = PREVIEW.children('img').attr('src');
-        image.onload = function () {
-            HEIGHT = image.naturalHeight * ({{ widget.attrs.preview_width }} / image.naturalWidth);
-            WIDTH = {{ widget.attrs.preview_width }};
-            init();
-        }
+        init();
     })
 })(django.jQuery)
 </script>
