@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models.fields.files import ImageFieldFile
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .forms import SubjectImageFormField
 from .widgets import SubjectImageInput
