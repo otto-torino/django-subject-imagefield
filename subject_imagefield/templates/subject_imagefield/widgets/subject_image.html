@@ -119,9 +119,12 @@
             var parts = $(this).val().split(',');
             PIN.css(toEdgeCoordinates(percToPreviewCoordinates({ left: parts[0], top: parts[1] })));
         });
-        HEIGHT = PREVIEW.height();
-        WIDTH = PREVIEW.width();
-        init();
+        setTimeout(function () {
+            console.log('TIMEO');
+            HEIGHT = PREVIEW.height();
+            WIDTH = PREVIEW.width();
+            init();
+        }, 100)
     })
 })(django.jQuery)
 </script>
