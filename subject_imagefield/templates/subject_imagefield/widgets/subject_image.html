@@ -76,12 +76,15 @@
 
     function init() {
         var image = new Image();
-        image.onload = function () {
+        var updatePinPosition = function () {
+            HEIGHT = PREVIEW.height();
+            WIDTH = PREVIEW.width();
             // get real size
             var position =  updateInputPosition();
             var initPinPosition = toEdgeCoordinates(percToPreviewCoordinates(position));
 
-            PIN = $('<div />').css({
+            if (!PIN) PIN = $('<div />')
+            PIN.css({
                 background: 'black',
                 border: '6px double white',
                 width: PIN_DIM + 'px',
@@ -94,7 +97,9 @@
             }).appendTo(PREVIEW);
             PIN.mousedown(handle_mousedown);
         };
+        image.onload = updatePinPosition;
         image.src = '{{ widget.value.url }}';
+        $(image).resize(updatePinPosition);
     }
 
     $(document).ready(function () {
@@ -119,12 +124,8 @@
             var parts = $(this).val().split(',');
             PIN.css(toEdgeCoordinates(percToPreviewCoordinates({ left: parts[0], top: parts[1] })));
         });
-        setTimeout(function () {
-            console.log('TIMEO');
-            HEIGHT = PREVIEW.height();
-            WIDTH = PREVIEW.width();
-            init();
-        }, 100)
+
+        init();
     })
 })(django.jQuery)
 </script>
