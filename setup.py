@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-subject-imagefield',
-    version='0.2.10',
+    version='0.2.11',
     packages=['subject_imagefield'],
     include_package_data=True,
     license='MIT License',
