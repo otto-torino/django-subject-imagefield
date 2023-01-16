@@ -100,6 +100,7 @@
         image.onload = updatePinPosition;
         image.src = '{{ widget.value.url }}';
         $(image).resize(updatePinPosition);
+        window.addEventListener('hashchange', updatePinPosition);
     }
 
     $(document).ready(function () {
